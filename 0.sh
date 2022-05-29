@@ -1,13 +1,12 @@
 #!/bin/sh
-echo img2pdf output:
+
+echo magick sanitation:
 convert "./in.png" "./sample.png"
-echo pixel-to-pixel comparision:
-echo
+stat -c "%n,%s" in.png sample.png | column -t -s,
 echo Result: our sample is ready.
 echo
 
 echo img2pdf output:
-stat -c "%n,%s" sample.png | column -t -s,
 img2pdf ./sample.png -o ./sample1.pdf
 pdfimages -list ./sample1.pdf
 pdfimages -all ./sample1.pdf ./sample1
@@ -31,6 +30,7 @@ echo
 echo Result: GhostScript \(via pdfScale.sh\) recompresses to jpeg and introduces artifacts.
 echo
 
+echo ghostscript output:
 gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dSAFER -dCompatibilityLevel="1.5" -dPDFSETTINGS="/printer" -dColorImageResolution=300 -dGrayImageResolution=300 -dColorImageDownsampleType="/Bicubic" -dGrayImageDownsampleType="/Bicubic" -dColorConversionStrategy=/LeaveColorUnchanged -dSubsetFonts=true -dEmbedAllFonts=true -dDEVICEWIDTHPOINTS=228 -dDEVICEHEIGHTPOINTS=166 -dAutoRotatePages=/PageByPage -dFIXEDMEDIA -dPDFFitPage  -sOutputFile="./sample3.pdf" -c "" -f "./sample1.pdf"
 pdfimages -list ./sample3.pdf
 pdfimages -all ./sample3.pdf ./sample3
@@ -42,6 +42,7 @@ echo
 echo Result: GhostScript \(alone\) introduces artifacts.
 echo
 
+echo pdfScale.py output:
 ./pdfScale.py -r "custom points 228 166" ./sample1.pdf ./sample4.pdf
 pdfimages -list ./sample4.pdf
 pdfimages -all ./sample4.pdf ./sample4

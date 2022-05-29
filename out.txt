@@ -1,0 +1,57 @@
+magick sanitation:
+in.png      11581
+sample.png  11669
+Result: our sample is ready.
+
+img2pdf output:
+page   num  type   width height color comp bpc  enc interp  object ID x-ppi y-ppi size ratio
+--------------------------------------------------------------------------------------------
+   1     0 image     114    83  icc     3   8  image  no         8  0    72    72 5485B  19%
+size comparision:
+sample1-000-diff.png  8097
+sample1-000.png       5337
+sample1.pdf           7507
+pixel-to-pixel comparision:
+0
+Result: img2pdf is lossless.
+
+pdfScale.sh output:
+[GS RESIZE CALL STARTS]
+gs -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dSAFER -dCompatibilityLevel="1.5" -dPDFSETTINGS="/printer" -dColorImageResolution=300 -dGrayImageResolution=300 -dColorImageDownsampleType="/Bicubic" -dGrayImageDownsampleType="/Bicubic" -dColorConversionStrategy=/LeaveColorUnchanged -dSubsetFonts=true -dEmbedAllFonts=true -dDEVICEWIDTHPOINTS=228 -dDEVICEHEIGHTPOINTS=166 -dAutoRotatePages=/PageByPage -dFIXEDMEDIA -dPDFFitPage  -sOutputFile="./sample2.pdf" -c "" -f "./sample1.pdf"
+[GS RESIZE CALL ENDS]
+page   num  type   width height color comp bpc  enc interp  object ID x-ppi y-ppi size ratio
+--------------------------------------------------------------------------------------------
+   1     0 image     114    83  icc     3   8  jpeg   no         9  0    36    36 1539B 5.4%
+size comparision:
+sample2-000-diff.png  9014
+sample2-000.jpg       1539
+sample2.pdf           6596
+pixel-to-pixel comparision:
+5454
+Result: GhostScript (via pdfScale.sh) recompresses to jpeg and introduces artifacts.
+
+ghostscript output:
+page   num  type   width height color comp bpc  enc interp  object ID x-ppi y-ppi size ratio
+--------------------------------------------------------------------------------------------
+   1     0 image     114    83  icc     3   8  jpeg   no         9  0    36    36 1539B 5.4%
+size comparision:
+sample3-000-diff.png  9014
+sample3-000.jpg       1539
+sample3.pdf           6591
+pixel-to-pixel comparision:
+5454
+Result: GhostScript (alone) introduces artifacts.
+
+pdfScale.py output:
+page   num  type   width height color comp bpc  enc interp  object ID x-ppi y-ppi size ratio
+--------------------------------------------------------------------------------------------
+   1     0 image     114    83  icc     3   8  image  no         5  0    36    36 5485B  19%
+size comparision:
+sample4-000-diff.png  8097
+sample4-000.png       5337
+sample4.pdf           7277
+pixel-to-pixel comparision:
+0
+Result: pdfScale.py is lossless.
+
+Conclusion: GhostScript is lossy and pdfScale.sh is affected.

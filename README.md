@@ -17,7 +17,7 @@ We santifize with imagemagick into sample.png:
 
 ![sample.png](sample.png?raw=true "sample.png")
 
-We convert to pdf with img2pdf and, dump using pdfimages and compare with magick:
+We convert to pdf with img2pdf, dump using pdfimages and compare with magick:
 
 ![sample1.pdf](sample1.pdf?raw=true "sample1.pdf")
 
@@ -37,7 +37,7 @@ Same with pdfScale.sh:
 
 Result: GhostScript (via pdfScale.sh) recompresses to jpeg and introduces artifacts.
 
-Now just with GhostScript:
+Now just GhostScript:
 
 ![sample3.pdf](sample3.pdf?raw=true "sample3.pdf")
 
@@ -47,7 +47,7 @@ Now just with GhostScript:
 
 Result: GhostScript (alone) introduces artifacts.
 
-Finally, with pdfScale.py:
+Finally, pdfScale.py:
 
 ![sample4.pdf](sample4.pdf?raw=true "sample4.pdf")
 
